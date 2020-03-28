@@ -814,6 +814,24 @@ class Schemas:
         "required": ["type", "sender", "content", "state_key"],
     }
 
+    room_tombstone = {
+        "type": "object",
+        "properties": {
+            "sender": {"type": "string", "format": "user_id"},
+            "state_key": {"type": "string"},
+            "type": {"type": "string"},
+            "content": {
+                "type": "object",
+                "properties": {
+                    "body": {"type": "string"},
+                    "replacement_room": {"type": "string"},
+                },
+                "required": ["body", "replacement_room"],
+            },
+        },
+        "required": ["type", "sender", "content", "state_key"],
+    }
+
     room_guest_access = {
         "type": "object",
         "properties": {

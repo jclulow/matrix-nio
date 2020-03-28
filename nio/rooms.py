@@ -33,6 +33,7 @@ from .events import (AccountDataEvent, FullyReadEvent, TagEvent,
                      RoomGuestAccessEvent, RoomHistoryVisibilityEvent,
                      RoomJoinRulesEvent, RoomMemberEvent, RoomNameEvent,
                      RoomTopicEvent, RoomAvatarEvent, TypingNoticeEvent,
+                     RoomTombstoneEvent,
                      ReceiptEvent, Receipt)
 from .log import logger_group
 from .responses import RoomSummary, UnreadNotifications

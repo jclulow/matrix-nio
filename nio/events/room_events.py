@@ -138,6 +138,8 @@ class Event:
             return RoomMessage.parse_event(event_dict)
         elif event_dict["type"] == "m.room.create":
             return RoomCreateEvent.from_dict(event_dict)
+        elif event_dict["type"] == "m.room.tombstone":
+            return RoomTombstoneEvent.from_dict(event_dict)
         elif event_dict["type"] == "m.room.guest_access":
             return RoomGuestAccessEvent.from_dict(event_dict)
         elif event_dict["type"] == "m.room.join_rules":
@@ -630,6 +632,21 @@ class RoomCreateEvent(Event):
         version = parsed_dict["content"]["room_version"]
 
         return cls(parsed_dict, creator, federate, version)
+
+
+@dataclass
+class RoomTombstoneEvent(Event):
+    replacement_room: str = field()
+    body: str = field()
+
+    @classmethod
+    @verify(Schemas.room_tombstone)
+    def from_dict(cls, parsed_dict):
+        # type: (Dict[Any, Any]) -> Union[RoomTombstoneEvent, BadEventType]
+        replacement_room = parsed_dict["content"]["replacement_room"]
+        body = parsed_dict["content"]["body"]
+
+        return cls(parsed_dict, replacement_room, body)
 
 
 @dataclass
